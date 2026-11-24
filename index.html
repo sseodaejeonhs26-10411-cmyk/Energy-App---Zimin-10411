@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#175b47">
+  <title>우리 반 에너지 체크</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header><a class="brand" href="#">🌱 우리 반 에너지 체크</a><span class="badge">SDG 7 · 함께 절약해요</span></header>
+  <main>
+    <section class="intro"><span class="eyebrow">이동 수업 전, 작은 확인 하나</span><h1>마지막으로 나갈 때,<br>불과 히터를 확인해요.</h1><p>5분 전 알림으로 한 번, 나가기 전 체크로 한 번.<br>우리 반이 함께 만드는 에너지 절약 습관.</p></section>
+    <aside class="notice"><strong>이 기기에서 사용하는 간단 버전</strong><p>시간표와 기록은 이 브라우저에만 저장됩니다. 자동 알림은 앱을 열어 둔 동안 이 기기에 표시되며, 학급 전체 전송·기기 간 공유는 지원하지 않습니다.</p></aside>
+    <div id="reminder" class="reminder" role="alert" hidden></div>
+    <div class="grid">
+      <section class="card check-card"><div class="section-title"><h2>나가기 전 체크</h2><span class="tag">마지막으로 나가는 친구</span></div><p class="muted">실제 스위치를 확인한 뒤 상태를 선택해주세요.</p>
+        <form id="check-form">
+          <label for="name">확인한 사람</label><input id="name" maxlength="30" placeholder="이름을 입력하세요" required autocomplete="name">
+          <label for="lesson">확인할 이동 수업</label><select id="lesson" required></select>
+          <fieldset><legend>💡 교실 불</legend><label class="choice"><input type="radio" name="light" value="OFF" required> OFF · 꺼져 있어요</label><label class="choice"><input type="radio" name="light" value="ON"> ON · 켜져 있어요</label></fieldset>
+          <fieldset><legend>♨ 교실 히터</legend><label class="choice"><input type="radio" name="heater" value="OFF" required> OFF · 꺼져 있어요</label><label class="choice"><input type="radio" name="heater" value="ON"> ON · 켜져 있어요</label></fieldset>
+          <p class="hint">켜져 있다면 먼저 끄고, 끌 수 없는 상황이면 ON으로 기록해주세요.</p>
+          <button class="primary full" type="submit">확인 기록 남기기</button>
+        </form>
+      </section>
+      <div class="stack">
+        <section class="card"><div class="section-title"><h2>이동 수업 시간표</h2><span class="tag">매주 반복</span></div><p class="muted">등록한 수업 시작 5분 전에 알려드려요.</p>
+          <form id="schedule-form"><div class="schedule-fields"><div><label for="day">요일</label><select id="day"><option value="1">월요일</option><option value="2">화요일</option><option value="3">수요일</option><option value="4">목요일</option><option value="5">금요일</option><option value="6">토요일</option><option value="0">일요일</option></select></div><div><label for="time">시작 시간</label><input id="time" type="time" value="10:30" required></div></div><label for="subject">수업 이름</label><div class="inline"><input id="subject" placeholder="예: 과학실 이동 수업" maxlength="50" required><button class="primary" type="submit">추가</button></div></form>
+          <ul id="schedule-list" class="schedule-list"></ul>
+          <button id="notification" class="secondary full" type="button">이 기기 알림 켜기</button><p id="notification-status" class="hint"></p>
+        </section>
+        <section class="card"><h2>함께 확인하는 방법</h2><label for="policy">재확인 방식</label><select id="policy"><option value="record">기록만 남기기</option><option value="friend">다른 친구에게 재확인 요청 표시</option><option value="duty">에너지 절약 당번에게 요청 표시</option></select><p class="hint">재확인 요청은 아래 기록에 표시됩니다. 친구나 당번에게 직접 알려주세요.</p></section>
+      </div>
+    </div>
+    <section class="card records"><div class="section-title"><h2>우리 반 확인 기록</h2><button id="export" class="secondary" type="button">CSV 다운로드</button></div><div id="stats" class="stats"></div><p class="hint">완료율은 오늘 시작 시각이 지난 등록 수업 중, 불·히터 모두 OFF로 확인된 수업의 비율입니다.</p><div class="table-wrap"><table><thead><tr><th>확인 시각</th><th>이름 / 수업</th><th>불</th><th>히터</th><th>재확인</th></tr></thead><tbody id="records"></tbody></table></div></section>
+    <p id="message" class="toast" role="status" hidden></p>
+    <footer>한 사람의 당번보다, 함께하는 한 번의 확인. <span>에너지 절약량은 실제로 측정하지 않습니다.</span></footer>
+  </main>
+</body>
+</html>
